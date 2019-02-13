@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Messages";
+}
+
+
+<div><a href="/Message/AddNewMessage">Write new message</a></div>
+<div>
+    <h4>Messages</h4>
+    <table>
+        <tr>
+            <td><p>Text</p></td>
+            <td></td>
+        </tr>
+        @foreach (var mes in ViewBag.Messages)
+        {
+            <tr>
+                <td><p>@mes.TextOfMessage</p></td>
+            </tr>
+        }
+    </table>
+</div>

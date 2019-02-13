@@ -7,23 +7,18 @@ using System.Threading.Tasks;
 
 namespace WebCustomerApp.Models
 {
-   public class PhoneRec
+    public class Phone
     {
-        [Key]
         public int PhoneId { get; set; }
-
-        [Required]
         public string PhoneNumber { get; set; }
 
+        public ICollection<RecepientMessage> RecepientMessages { get; set; }
+        public ICollection<AdditionalInfo> AdditionalInfos { get; set; }
 
-
-        public ICollection<AddInfo> PhoneColl { get; set; }
-        public ICollection<MessageRec> PhoneMesColl { get; set; }
-
-        public PhoneRec()
+        public Phone()
         {
-            PhoneColl = new List<AddInfo>();
-            PhoneMesColl = new List<MessageRec>();
+            RecepientMessages = new List<RecepientMessage>();
+            AdditionalInfos = new List<AdditionalInfo>();
         }
     }
 }

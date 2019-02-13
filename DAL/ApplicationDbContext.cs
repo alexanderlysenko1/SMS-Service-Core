@@ -10,14 +10,16 @@ namespace WebCustomerApp.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<AddInfo> addInfos { get; set; }
-        public DbSet<ClientProfile> clientProfiles { get; set; }
-        public DbSet<MessageRec> messageRecs { get; set; }
-        public DbSet<PhoneRec> phoneRecs { get; set; }
-        public DbSet<UserMessage> userMessages { get; set; }
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {
-			Database.EnsureCreated();
-		}
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<RecepientMessage> RecepientMessages { get; set; }
+        public DbSet<Phone> Phones { get; set; }
+        public DbSet<AdditionalInfo> AdditionalInfos { get; set; }
+
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

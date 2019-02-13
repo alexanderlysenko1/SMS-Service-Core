@@ -16,9 +16,10 @@ namespace WebCustomerApp.Models.AccountViewModels
         [Display(Name = "UserName")]
         public string UserName { get; set; }
         [Required]
+
         [Display(Name = "PhoneNumber")]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\+[0-9]{12}$",ErrorMessage ="Not a valid phone number")]
+        [RegularExpression(@"^\+[0-9]{12}$", ErrorMessage = "Not a valid phone number")]
         public string PhoneNumber { get; set; }
 
         [Required]

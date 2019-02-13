@@ -10,11 +10,11 @@ namespace WebCustomerApp.Models
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser
     {
-        ICollection<UserMessage> Messages { get; set; }
+        ICollection<RecepientMessage> Messages { get; set; }
 
         public ApplicationUser()
         {
-            Messages = new List<UserMessage>();
+            Messages = new List<RecepientMessage>();
         }
     }
 }

@@ -38,7 +38,7 @@ namespace WebCustomerApp.Controllers
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = new EmailSender();
+            _emailSender = emailSender;
             _logger = logger;
             _urlEncoder = urlEncoder;
         }
@@ -120,7 +120,6 @@ namespace WebCustomerApp.Controllers
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
             var email = user.Email;
@@ -491,6 +490,7 @@ namespace WebCustomerApp.Controllers
             return View(nameof(ShowRecoveryCodes), model);
         }
 
+       
         #region Helpers
 
         private void AddErrors(IdentityResult result)

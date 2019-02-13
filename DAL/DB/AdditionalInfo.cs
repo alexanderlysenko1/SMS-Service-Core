@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace WebCustomerApp.Models
 {
-   public class AddInfo
+   public class AdditionalInfo
     {
         [Key]
-        public int AdInfoId { get; set; }
+        public int AdditionalInfoId { get; set; }
+        public int PhoneId { get; set; }
+        public string AdditionalInfos { get; set; }
 
-        public int? PhonesId { get; set; }
-        [ForeignKey("PhonesId")]
-        public PhoneRec PhoneRec { get; set; }
-
-        public string AddfInfo { get; set; }
+        [ForeignKey("PhoneId")]
+        public Phone Phone { get; set; }
 
     }
 }

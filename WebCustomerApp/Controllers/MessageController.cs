@@ -28,8 +28,19 @@ namespace WebApp.Controllers
         [HttpGet]
         public ActionResult GetMessages()
         {
-            ViewBag.Messages = _unitOfWork._messageRepository.GetMessagesBySenderId(_unitOfWork._userManager.GetUserId(User));
-           // ViewBag.Recepients = _unitOfWork._recepientMessageRepository.GetRecepientsMessagesByMessageId(RecepientMessage);
+            List<ModelForMessageForSendingToUI> messagesWithRecipients = new List<ModelForMessageForSendingToUI>();
+            List<Message> messages = _unitOfWork._messageRepository.GetMessagesBySenderId(_unitOfWork._userManager.GetUserId(User));
+            foreach (var mes in messages)
+            {
+                List<Phone> phones = new List<Phone>();
+                List<RecepientMessage> recepientMessages = _unitOfWork._recepientMessageRepository.GetRecepientsMessagesByMessageId(mes.MessageId);
+                foreach (var recepientMes in recepientMessages)
+                {
+                    phones.Add(_unitOfWork._phoneRepository.GetById(recepientMes.PhoneId));
+                }
+                messagesWithRecipients.Add(new ModelForMessageForSendingToUI(mes, phones));
+            }
+            ViewBag.MessagesWithRecipients = messagesWithRecipients;
             return View("~/Views/Message/GetMessage.cshtml");
         }
 

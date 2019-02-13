@@ -1,6 +1,7 @@
 ﻿using BAL.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using WebCustomerApp.Data;
 using WebCustomerApp.Models;
@@ -11,5 +12,6 @@ namespace BAL.Repositories
     {
         public PhoneRepository(ApplicationDbContext sendingDbContext) : base(sendingDbContext)
         { }
+       
     }
 }

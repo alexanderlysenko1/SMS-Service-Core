@@ -12,6 +12,10 @@ namespace BAL.Repositories
     {
         public PhoneRepository(ApplicationDbContext sendingDbContext) : base(sendingDbContext)
         { }
-       
+
+        public List<Phone> GetByUserId(string userId)
+        {
+            return _dbSet.Where(item => item.UserId == userId).ToList();
+        }
     }
 }

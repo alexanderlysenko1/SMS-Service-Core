@@ -9,5 +9,6 @@ namespace Model.MessageViewModels
     {
         [Required]
         public string TextOfMessage { get; set; }
+        public List<string> Recepients { get; set; }
     }
 }

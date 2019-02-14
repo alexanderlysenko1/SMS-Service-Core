@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Model.MessageViewModels;
 using WebCustomerApp.Models;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 
 namespace WebApp.Controllers
 {
@@ -26,8 +26,9 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetMessages()
+        public ActionResult Messages()
         {
+
             List<ModelForMessageForSendingToUI> messagesWithRecipients = new List<ModelForMessageForSendingToUI>();
             List<Message> messages = _unitOfWork._messageRepository.GetMessagesBySenderId(_unitOfWork._userManager.GetUserId(User));
             foreach (var mes in messages)
@@ -41,24 +42,49 @@ namespace WebApp.Controllers
                 messagesWithRecipients.Add(new ModelForMessageForSendingToUI(mes, phones));
             }
             ViewBag.MessagesWithRecipients = messagesWithRecipients;
-            return View("~/Views/Message/GetMessage.cshtml");
-        }
-
-        [HttpGet]
-        public ActionResult AddNewMessage()
-        {
-            return View();
+            return View("~/Views/Message/Messages.cshtml");
         }
 
         [HttpPost]
-        public ActionResult AddNewMessage(MessageModel messageModel)
+        public ActionResult Messages(MessageModel messageModel)
         {
             Message message = new Message();
             message.SenderId = _unitOfWork._userManager.GetUserId(User);
             message.TextOfMessage = messageModel.TextOfMessage;
+            List<Phone> phones = _unitOfWork._phoneRepository.GetByUserId(_unitOfWork._userManager.GetUserId(User));
+            List<Phone> recepients = new List<Phone>();
+            List<Phone> newphones = new List<Phone>();
+            foreach (var recepient in messageModel.Recepients)
+            {
+                Phone phone = phones.Find(item => item.PhoneNumber == recepient);
+                if (phone != null)
+                {
+                    recepients.Add(phone);
+                }
+                else
+                {
+                    phone = new Phone();
+                    phone.PhoneNumber = recepient;
+                    phone.UserId = _unitOfWork._userManager.GetUserId(User);
+                    newphones.Add(phone);
+                }
+            }
+            foreach (var newphone in newphones)
+            {
+                _unitOfWork._phoneRepository.Create(newphone);
+                recepients.Add(newphone);
+            }
+            foreach (var recepient in recepients)
+            {
+                RecepientMessage recepientMessage = new RecepientMessage();
+                recepientMessage.MessageId = message.MessageId;
+                recepientMessage.PhoneId = recepient.PhoneId;
+                _unitOfWork._recepientMessageRepository.Create(recepientMessage);
+            }
+
             _unitOfWork._messageRepository.Create(message);
             _unitOfWork.SaveChanges();
-            return RedirectToAction("GetMessages");
+            return RedirectToAction("Messages");
         }
     }
 }

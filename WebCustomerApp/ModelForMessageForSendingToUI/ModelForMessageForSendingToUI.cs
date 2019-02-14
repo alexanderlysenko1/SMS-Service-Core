@@ -14,7 +14,9 @@ namespace Model.MessageViewModels
         {
             Message = message;
             Phones = phones;
+
         }
+
     }
 
 }

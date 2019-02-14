@@ -7,6 +7,6 @@ namespace BAL.Interface
 {
     public interface IPhoneRepository  : IRepository<Phone>
     {
-       
+        List<Phone> GetByUserId(string senderId);
     }
 }

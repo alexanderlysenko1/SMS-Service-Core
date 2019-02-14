@@ -11,10 +11,12 @@ namespace WebCustomerApp.Models
     public class ApplicationUser : IdentityUser
     {
         ICollection<RecepientMessage> Messages { get; set; }
+        ICollection<Phone> Phones { get; set; }
 
         public ApplicationUser()
         {
             Messages = new List<RecepientMessage>();
+            Phones = new List<Phone>();
         }
     }
 }

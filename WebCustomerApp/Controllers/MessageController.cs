@@ -51,6 +51,8 @@ namespace WebApp.Controllers
             Message message = new Message();
             message.SenderId = _unitOfWork._userManager.GetUserId(User);
             message.TextOfMessage = messageModel.TextOfMessage;
+            _unitOfWork._messageRepository.Create(message);
+            _unitOfWork.SaveChanges();
             List<Phone> phones = _unitOfWork._phoneRepository.GetByUserId(_unitOfWork._userManager.GetUserId(User));
             List<Phone> recepients = new List<Phone>();
             List<Phone> newphones = new List<Phone>();
@@ -82,7 +84,7 @@ namespace WebApp.Controllers
                 _unitOfWork._recepientMessageRepository.Create(recepientMessage);
             }
 
-            _unitOfWork._messageRepository.Create(message);
+            
             _unitOfWork.SaveChanges();
             return RedirectToAction("Messages");
         }

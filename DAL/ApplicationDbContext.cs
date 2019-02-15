@@ -13,7 +13,7 @@ namespace WebCustomerApp.Data
         public DbSet<Message> Messages { get; set; }
         public DbSet<RecepientMessage> RecepientMessages { get; set; }
         public DbSet<Phone> Phones { get; set; }
-        public DbSet<AdditionalInfo> AdditionalInfos { get; set; }
+     
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)

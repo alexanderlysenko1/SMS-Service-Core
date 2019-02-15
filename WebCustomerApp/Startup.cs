@@ -14,6 +14,7 @@ using WebCustomerApp.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using BAL.Repositories;
 using BAL.Interface;
+using Newtonsoft.Json.Serialization;
 
 namespace WebCustomerApp
 {
@@ -29,6 +30,7 @@ namespace WebCustomerApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -49,7 +51,6 @@ namespace WebCustomerApp
             services.AddTransient<IMessageRepository, MessageRepository>();
             services.AddTransient<IRecepientMessageRepository, RecepientMessageRepository>();
             services.AddTransient<IPhoneRepository, PhoneRepository>();
-            services.AddTransient<IAdditionalInfoRepository, AdditionalInfoRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => {options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");});

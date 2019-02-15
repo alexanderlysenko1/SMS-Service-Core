@@ -13,4 +13,8 @@
     <Folder Include="Managers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="SmartIT.Employee.MockDB" Version="1.0.6" />
+  </ItemGroup>
+
 </Project>

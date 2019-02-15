@@ -12,7 +12,7 @@ namespace BAL.Interface
         IMessageRepository _messageRepository { get; }
         IRecepientMessageRepository _recepientMessageRepository { get; }
         IPhoneRepository _phoneRepository { get; }
-        IAdditionalInfoRepository _additionalInfoRepository { get; }
+    
 
         void SaveChanges();
     }

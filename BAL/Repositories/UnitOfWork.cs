@@ -13,25 +13,25 @@ namespace BAL.Repositories
         public IMessageRepository _messageRepository { get; }
         public IRecepientMessageRepository _recepientMessageRepository { get; }
         public IPhoneRepository _phoneRepository { get; }
-        public IAdditionalInfoRepository _additionalInfoRepository { get; }
+       
 
 
         public UnitOfWork(UserManager<ApplicationUser> userManager, IMessageRepository messageRepository, IRecepientMessageRepository recepientMessageRepository,
-            IPhoneRepository phoneRepository, IAdditionalInfoRepository additionalInfoRepository)
+            IPhoneRepository phoneRepository)
         {
             _userManager = userManager;
             _messageRepository = messageRepository;
             _recepientMessageRepository = recepientMessageRepository;
             _phoneRepository = phoneRepository;
-            _additionalInfoRepository = additionalInfoRepository;
+        
         }
 
         public void SaveChanges()
         {
             _messageRepository.SaveChanges();
+            _phoneRepository.SaveChanges();
             _recepientMessageRepository.SaveChanges();
-           // _phoneRepository.SaveChanges();
-            _additionalInfoRepository.SaveChanges();
+           
         }
     }
 }

@@ -16,14 +16,14 @@ namespace WebCustomerApp.Models
         public string FullName { get; set; }
 
         public ICollection<RecepientMessage> RecepientMessages { get; set; }
-        public ICollection<AdditionalInfo> AdditionalInfos { get; set; }
+       
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
 
         public Phone()
         {
             RecepientMessages = new List<RecepientMessage>();
-            AdditionalInfos = new List<AdditionalInfo>();
+           
         }
     }
 }

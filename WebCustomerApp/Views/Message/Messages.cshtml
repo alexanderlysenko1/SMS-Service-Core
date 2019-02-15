@@ -137,6 +137,16 @@
                 var textarea = document.getElementById("phones");
                 textarea.textContent += input.value + "\n";
                 input.value = "";
+                var re = new RegExp("^[+][0-9]{12}");
+                if (re.test(input.value)) {
+                    phones.push(input.value);
+                    var textarea = document.getElementById("phones");
+                    textarea.textContent += input.value + "\n";
+                    input.value = "";
+                }
+                else {
+                    span.textContent = "Phone number is not valid";
+                }
             }
         </script>
         <script type="text/javascript">

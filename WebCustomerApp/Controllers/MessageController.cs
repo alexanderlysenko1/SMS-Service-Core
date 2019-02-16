@@ -86,7 +86,7 @@ namespace WebApp.Controllers
 
             
             _unitOfWork.SaveChanges();
-            return RedirectToAction("Messages");
+            return Json(new { message.MessageId });
         }
     }
 }

@@ -1,0 +1,108 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model RegisterLoginModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Authorization</title>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+
+<body>
+
+    <div class="login-wrap">
+
+        <div class="login-html">
+
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+            <div class="login-form">
+                <div class="sign-in-htm">
+
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                    {
+
+                        <div class="login-form">
+                            <div class="sign-in-htm">
+                                <div class="group">
+                                    <label asp-for="LoginModel.UserName" class="label">Username</label>
+                                    <input asp-for="LoginModel.UserName" type="text" class="input">
+                                    <span asp-validation-for="LoginModel.UserName" class="text-danger"></span>
+                                </div>
+                                <div class="group">
+                                    <label asp-for="LoginModel.Password" class="label">Password</label>
+                                    <input asp-for="LoginModel.Password" id="pass" type="password" class="input" data-type="password">
+                                    <span asp-validation-for="LoginModel.Password" class="text-danger"></span>
+                                </div>
+                                <div class="group">
+                                    <label asp-for="RememberMe">
+                                        <input asp-for="RememberMe" />
+                                        @Html.DisplayNameFor(m => m.RememberMe)
+                                    </label>
+                                </div>
+                                <div class="group">
+                                    <input type="submit" class="button" value="Sign In">
+                                </div>
+                                <div class="hr"></div>
+                                <div class="foot-lnk">
+                                    <a href="#forgot">Forgot Password?</a>
+                                </div>
+                                <div class="foot-lnk">
+                                    <img src="images/logo.png" width="250" height="70">
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    @using (Html.BeginForm("Account", "Register", FormMethod.Post))
+                    {
+
+                        <div class="sign-up-htm">
+
+                            <div class="group">
+                                <label asp-for="RegisterModel.UserName" class="label">Username</label>
+                                <input asp-for="RegisterModel.UserName" id="user" type="text" class="input">
+                                <span asp-validation-for="RegisterModel.UserName" class="text-danger"></span>
+                            </div>
+                            <div class="group">
+                                <label asp-for="RegisterModel.PhoneNumber" class="label">Phone Number</label>
+                                <input asp-for="RegisterModel.PhoneNumber" id="phone" type="tel" name="phone" class="input" pattern="^[+][0-9]{12}" required>
+                            </div>
+                            <div class="group">
+                                <label asp-for="RegisterModel.Email" class="label">Email Address</label>
+                                <input asp-for="RegisterModel.Email" type="text" class="input">
+                            </div>
+                            <div class="group">
+                                <label asp-for="RegisterModel.Password" class="label">Password</label>
+                                <input asp-for="RegisterModel.Password" id="pass" type="password" class="input" data-type="password">
+                            </div>
+                            <div class="group">
+                                <label asp-for="RegisterModel.ConfirmPassword" class="label">Repeat Password</label>
+                                <input asp-for="RegisterModel.ConfirmPassword" id="pass" type="password" class="input" data-type="password">
+                            </div>
+
+                            <div class="group">
+                                <input type="submit" class="button" value="Sign Up">
+                            </div>
+                            <div class="hr"></div>
+                            <div class="foot-lnk">
+                                <a for="tab-1">Already Member?</a>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

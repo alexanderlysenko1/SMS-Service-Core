@@ -103,6 +103,14 @@
                 };
             $.ajax(options);
         }
+        function phoneEditAllow(item) {
+            item.removeChild(item.firstChild);
+            item.textContent = "";
+            $(item).append("<span class='glyphicon glyphicon-floppy-disk' /> Save");
+            $(".input_phone", $(item).parent().parent())[0].readOnly = false;
+            $(".input_fullname", $(item).parent().parent())[0].readOnly = false;
+            item.setAttribute("onclick", "phoneUpdate(this)");
+        }
         function phoneUpdate(item) {
             var id = $(item).data("id");
             var options = {};
@@ -110,8 +118,8 @@
             options.type = "PUT";
             var obj = Phone;
             obj.id = $(item).data("id");
-            obj.PhoneNumber = $(".input-phone", $(item).parent().parent()).val();
-            obj.FullName = $(".input-fullname", $(item).parent().parent()).val();
+            obj.PhoneNumber = $(".input_phone", $(item).parent().parent()).val();
+            obj.FullName = $(".input_fullname", $(item).parent().parent()).val();
             console.dir(obj);
             options.data = obj;
             options.success = function (msg) {
@@ -121,7 +129,14 @@
                 $("#msg").html("Error while calling the Web API!");
             };
             $.ajax(options);
+            item.removeChild(item.firstChild);
+            item.textContent = "";
+            $(item).append("<span class='glyphicon glyphicon-edit' /> Update");
+            $(".input_phone", $(item).parent().parent())[0].readOnly = true;
+            $(".input_fullname", $(item).parent().parent())[0].readOnly = true;
+            item.setAttribute("onclick", "phoneEditAllow(this)");
         }
+
         function phoneDelete(item) {
             var id = $(item).data("id");
             var options = {};

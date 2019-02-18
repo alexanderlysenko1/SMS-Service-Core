@@ -2,86 +2,122 @@
 @using System.Linq
 @using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Http.Authentication
-@model LoginViewModel
+@model RegisterLoginModel
 @inject SignInManager<ApplicationUser> SignInManager
-
 @{
-    ViewData["Title"] = "Log in";
 }
 
-<h2>@ViewData["Title"]</h2>
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="UserName"></label>
-                    <input asp-for="UserName" class="form-control" />
-                    <span asp-validation-for="UserName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="RememberMe">
-                            <input asp-for="RememberMe" />
-                            @Html.DisplayNameFor(m => m.RememberMe)
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default">Log in</button>
-                </div>
-                <div class="form-group">
-                    <p>
-                        <a asp-action="ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
-                    </p>
-                </div>
-            </form>
-        </section>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h4>Use another service to log in.</h4>
-            <hr />
-            @{
-                var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-                if (loginProviders.Count == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in loginProviders)
-                                {
-                                    <button type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.Name</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
-    </div>
-</div>
 
-@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Authorization</title>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
+    <link rel='stylesheet' href="~/css/style.css" />
+</head>
+
+<body background="">
+    
+
+        <div class="login-wrap">
+
+            <div class="login-html">
+               
+
+                    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+                    <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+                   
+
+                                                                              <div class="login-form">
+                                                                                  @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                                                                                  {
+                                                                                      <div class="sign-in-htm">
+                                                                                          <div class="group">
+                                                                                              <label asp-for="LoginModel.UserName" class="label">Username</label>
+                                                                                              <input asp-for="LoginModel.UserName" type="text" class="input">
+                                                                                              <span asp-validation-for="LoginModel.UserName" class="text-danger"></span>
+                                                                                          </div>
+                                                                                          <div class="group">
+                                                                                              <label asp-for="LoginModel.Password" class="label">Password</label>
+                                                                                              <input asp-for="LoginModel.Password" id="pass" type="password" class="input" data-type="password">
+                                                                                              <span asp-validation-for="LoginModel.Password" class="text-danger"></span>
+                                                                                          </div>
+                                                                                          <div class="group">
+                                                                                              
+                                                                                                  <input id="check" class="check" checked>
+                                                                                                  <label asp-for="LoginModel.RememberMe">
+                                                                                                      
+                                                                                                
+                                                                                                      <input asp-for="LoginModel.RememberMe" />
+                                                                                                      @Html.DisplayNameFor(m => m.LoginModel.RememberMe)
+                                                                                                  </label>
+                                                                                             
+                                                                                          </div>
+                                                                                          <div class="group">
+                                                                                              <input type="submit" class="button" value="Sign In">
+                                                                                          </div>
+                                                                                          <div class="hr"></div>
+                                                                                          <div class="foot-lnk">
+                                                                                              <a href="#forgot">Forgot Password?</a>
+                                                                                          </div>
+                                                                                          <div class="foot-lnk">
+                                                                                              <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/SoftServe_logo_new.png" width="250" height="70">
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  }
+
+
+
+                                                                                  @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+                                                                                  {
+
+
+                                                                                      <div class="sign-up-htm">
+                                                                                          <div asp-validation-summary="All" class="text-danger"></div>
+                                                                                          <div class="group">
+                                                                                              <label asp-for="RegisterModel.UserName" class="label"></label>
+                                                                                              <input asp-for="RegisterModel.UserName" class="input" />
+                                                                                              <span asp-validation-for="RegisterModel.UserName" class="text-danger"></span>
+                                                                                          </div>
+                                                                                          <div class="group">
+                                                                                              <label asp-for="RegisterModel.PhoneNumber" class="label"></label>
+                                                                                              <input asp-for="RegisterModel.PhoneNumber" class="input" />
+                                                                                              <span asp-validation-for="RegisterModel.PhoneNumber" class="text-danger"></span>
+                                                                                          </div>
+                                                                                          <div class="group">
+                                                                                              <label asp-for="RegisterModel.Email" class="label" ></label>
+                                                                                              <input asp-for="RegisterModel.Email" class="input" />
+                                                                                              <span asp-validation-for="RegisterModel.Email" class="text-danger"></span>
+                                                                                          </div>
+                                                                                          <div class="group">
+                                                                                              <label asp-for="RegisterModel.Password" class="label"></label>
+                                                                                              <input asp-for="RegisterModel.Password" class="input" />
+                                                                                              <span asp-validation-for="RegisterModel.Password" class="text-danger"></span>
+                                                                                          </div>
+                                                                                          <div class="group">
+                                                                                              <label asp-for="RegisterModel.ConfirmPassword" class="label"></label>
+                                                                                              <input asp-for="RegisterModel.ConfirmPassword" class="input" />
+                                                                                              <span asp-validation-for="RegisterModel.ConfirmPassword" class="text-danger"></span>
+                                                                                          </div>
+
+                                                                                          <div class="group">
+                                                                                              <input type="submit" class="button" value="Sign Up">
+                                                                                          </div>
+                                                                                          <div class="hr"></div>
+                                                                                          <div class="foot-lnk">
+                                                                                              <label for="tab-1">Already Member?</label>
+                                                                                          </div>
+                                                                                      </div>
+                  }
+ @section Scripts {
+ @await Html.PartialAsync("_ValidationScriptsPartial")
+ }
+   </div>
+    </div>
+
+    
+ </div>
+</body>
+
+</html>

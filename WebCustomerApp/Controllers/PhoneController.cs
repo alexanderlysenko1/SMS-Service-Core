@@ -27,18 +27,19 @@ namespace WebApp.Controllers
             return View();
         }
 
-        [Route("~/Phone/GetPhones")]
-        [HttpGet]
-        public ICollection<RecepientModel> GetPhones()
+        [Route("~/Phone/GetPhonesCount")]
+        public int GetPhonesCount()
         {
             List<Phone> phones = _unitOfWork._phoneRepository.GetByUserId(_unitOfWork._userManager.GetUserId(User));
-            List<RecepientModel> recepientModels = new List<RecepientModel>();
-            foreach (var phone in phones)
-            {
-                RecepientModel recepientModel = new RecepientModel { id = phone.PhoneId, FullName = phone.FullName, PhoneNumber = phone.PhoneNumber };
-                recepientModels.Add(recepientModel);
-            }
-            return recepientModels;
+            return phones.Count;
+        }
+
+        [Route("~/Phone/GetPhones")]
+        [HttpGet]
+        public ICollection<Phone> GetPhones(int numberOfPage)
+        {
+            List<Phone> phones = _unitOfWork._phoneRepository.GetByUserId(_unitOfWork._userManager.GetUserId(User));
+            return phones.Skip(numberOfPage * 10 - 10).Take(10).ToList();
         }
 
         [HttpGet("{id}")]
@@ -59,7 +60,7 @@ namespace WebApp.Controllers
             phone.FullName = obj.FullName;
             _unitOfWork._phoneRepository.Create(phone);
             _unitOfWork.SaveChanges();
-            return new ObjectResult("Employee added successfully!");
+            return new ObjectResult("Phone added successfully!");
         }
 
         [Route("~/Phone/UpdatePhone")]
@@ -72,7 +73,8 @@ namespace WebApp.Controllers
             phone.PhoneNumber = obj.PhoneNumber;
             phone.FullName = obj.FullName;
             _unitOfWork._phoneRepository.Update(phone);
-            return new ObjectResult("Employee modified successfully!");
+            _unitOfWork.SaveChanges();
+            return new ObjectResult("Phone modified successfully!");
         }
 
         [Route("~/Phone/DeletePhone/{id}")]
@@ -86,7 +88,22 @@ namespace WebApp.Controllers
             }
             _unitOfWork._phoneRepository.Delete(id);
             _unitOfWork.SaveChanges();
-            return new ObjectResult("Employee deleted successfully!");
+            return new ObjectResult("Phone deleted successfully!");
+        }
+
+        [Route("~/Phone/Search/")]
+        [HttpGet]
+        public ICollection<Phone> Search(string searchData, int numberOfPage)
+        {
+            return _unitOfWork._phoneRepository.GetAll().Where(item => (item.PhoneNumber == searchData || item.FullName == searchData)).
+                Skip(numberOfPage * 10 - 10).Take(10).ToList();
+        }
+
+        [Route("~/Phone/GetNumberOfSearchPhones/")]
+        [HttpGet]
+        public int GetNumberOfSearchPhones(string searchData)
+        {
+            return _unitOfWork._phoneRepository.GetAll().Where(item => (item.PhoneNumber == searchData || item.FullName == searchData)).Count();
         }
     }
 }

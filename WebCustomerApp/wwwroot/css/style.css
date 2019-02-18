@@ -1,14 +1,15 @@
-body {
-    margin: 0;
-    color: #6a6f8c;
-    background: url(https://raw.githubusercontent.com/khadkamhn/day-01-login-form/master/img/bg.jpg) no-repeat center center fixed;
-    background-size: cover;
-    font: 600 16px/18px 'Open Sans',sans-serif;
+body{
+	margin:0;
+	color:#6a6f8c;
+	
+	font:600 16px/18px 'Open Sans',sans-serif;
 }
 html { 
-
-
-
+  background: url(https://raw.githubusercontent.com/khadkamhn/day-01-login-form/master/img/bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 *,:after,:before{box-sizing:border-box}
 .clearfix:after,.clearfix:before{content:'';display:table}
@@ -19,7 +20,7 @@ a{color:inherit;text-decoration:none}
 	width:100%;
 	margin:auto;
 	max-width:525px;
-	min-height:700px;
+	min-height:670px;
 	position:relative;
 
 	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
@@ -92,7 +93,10 @@ a{color:inherit;text-decoration:none}
 	border-radius:25px;
 	background:rgba(255,255,255,.1);
 }
-
+.login-form .group input[data-type="password"]{
+	text-security:circle;
+	-webkit-text-security:circle;
+}
 .login-form .group .label{
 	color:#aaa;
 	font-size:12px;
@@ -137,8 +141,8 @@ a{color:inherit;text-decoration:none}
 	background:#1161ee;
 }
 .login-form .group .check:checked + label .icon:before{
-	-webkit-transform:scale(1) rotate(90deg);
-	        transform:scale(1) rotate(90deg);
+	-webkit-transform:scale(1) rotate(45deg);
+	        transform:scale(1) rotate(45deg);
 }
 .login-form .group .check:checked + label .icon:after{
 	-webkit-transform:scale(1) rotate(-45deg);
